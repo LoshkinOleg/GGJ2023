@@ -107,7 +107,7 @@ public partial class @InputActionsRoot : IInputActionCollection2, IDisposable
                     ""id"": ""3c6d7e25-0cdd-4840-8bd7-bf162555c1b1"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""NormalizeVector2"",
                     ""groups"": ""Gameplay"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
