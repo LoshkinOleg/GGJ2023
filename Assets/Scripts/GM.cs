@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Linq;
+using Cinemachine;
 
 public class GM : MonoBehaviour
 {
@@ -30,7 +31,15 @@ public class GM : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject menuCanvas_;
 
+    [Header("Cameras")]
     [SerializeField]
+    private CinemachineVirtualCamera _menuCamera = null;
+	[SerializeField]
+	private CinemachineVirtualCamera _gameplayCamera = null;
+
+
+
+	[SerializeField]
     private FloatEvent _onDeath = null;
 
     private InputActionsRoot _inputActions = null;
@@ -74,6 +83,9 @@ public class GM : MonoBehaviour
         {
             _onDeath.AddListener(OnDeath);
         }
+
+        _gameplayCamera.gameObject.SetActive(false);
+        _menuCamera.gameObject.SetActive(true);
     }
 
     private void OnDisable()
@@ -88,6 +100,11 @@ public class GM : MonoBehaviour
 
     private void TogglePause(InputAction.CallbackContext obj)
     {
+        if(menuCanvas_.activeInHierarchy)
+        {
+            return;
+        }
+
         if (!paused_)
         {
             Pause();
@@ -110,7 +127,13 @@ public class GM : MonoBehaviour
         }
         paused_ = false;
         menuCanvas_.SetActive(false);
-    }
+
+		_inputActions.Menu.Enable();
+
+
+		_gameplayCamera.gameObject.SetActive(true);
+		_menuCamera.gameObject.SetActive(false);
+	}
 
     public void Unpause()
     {
@@ -133,6 +156,14 @@ public class GM : MonoBehaviour
 
     private void OnDeath( float value)
     {
+		menuCanvas_.SetActive(true);
+		_inputActions.Menu.Enable();
 
-    }
+        Pause();
+
+		_gameplayCamera.gameObject.SetActive(false);
+		_menuCamera.gameObject.SetActive(true);
+	}
+
+
 }

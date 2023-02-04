@@ -19,7 +19,17 @@ public class LifeSystem : MonoBehaviour, IResetable
 
 
 	private float _currentLife = 0f;
-
+	public float CurrentLife
+	{
+		get
+		{
+			return _currentLife;
+		}
+		set
+		{
+			_currentLife = value;
+		}
+	}
 
 	private void OnEnable()
 	{

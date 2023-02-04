@@ -45,6 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3e0f18e449cb14caeb3d31e805ea30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuCanvas_: {fileID: 0}
+  _menuCamera: {fileID: 0}
+  _gameplayCamera: {fileID: 0}
+  _onDeath: {fileID: 11400000, guid: 50ae300ce758de54885d4c08cb4fe9dd, type: 2}
 --- !u!114 &2431182844569764515
 MonoBehaviour:
   m_ObjectHideFlags: 0

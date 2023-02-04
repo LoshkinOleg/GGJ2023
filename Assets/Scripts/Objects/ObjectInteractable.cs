@@ -6,8 +6,12 @@ public class ObjectInteractable : MonoBehaviour
 
     [SerializeField]
     private List<FloatEvent> _onActions = null;
+	[SerializeField]
+	private List<FloatEvent> _rewardActions = null;
 
-    [SerializeField]
+
+
+	[SerializeField]
     private float _value = 0f;
 
     [SerializeField]
@@ -17,10 +21,7 @@ public class ObjectInteractable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_onlyActivation && !_active)
-        {
-            return;
-        }
+
 
         for (int i = 0; i < _onActions.Count; i++)
         {
@@ -30,6 +31,19 @@ public class ObjectInteractable : MonoBehaviour
 			}
 		}
 
-        _active = false;
+		if (_onlyActivation && !_active)
+		{
+			return;
+		}
+
+		for (int i = 0; i < _rewardActions.Count; i++)
+		{
+			if (_rewardActions[i] != null)
+			{
+				_rewardActions[i].Raise(_value);
+			}
+		}
+
+		_active = false;
     }
 }

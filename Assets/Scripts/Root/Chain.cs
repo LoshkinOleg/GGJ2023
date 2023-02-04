@@ -33,6 +33,8 @@ public class Chain : MonoBehaviour , IResetable
 
 	[SerializeField]
 	private FloatEvent _onReturn = null;
+	[SerializeField]
+	private FloatEvent _onDeath = null;
 
 
 
@@ -78,6 +80,11 @@ public class Chain : MonoBehaviour , IResetable
 			_onReturn.AddListener(NewChain);
 		}
 
+		if (_onDeath != null)
+		{
+			_onDeath.AddListener(NewChain);
+		}
+
 		_head.Movement.Activate = false;
 	}
 
@@ -88,6 +95,11 @@ public class Chain : MonoBehaviour , IResetable
 		if (_onReturn != null)
 		{
 			_onReturn.RemoveListener(NewChain);
+		}
+
+		if (_onDeath != null)
+		{
+			_onDeath.RemoveListener(NewChain);
 		}
 	}
 
@@ -231,4 +243,5 @@ public class Chain : MonoBehaviour , IResetable
 
 		_head.Movement.Activate = true;
 	}
+
 }
