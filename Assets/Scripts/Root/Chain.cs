@@ -96,6 +96,11 @@ public class Chain : MonoBehaviour , IResetable
 		{
 			_onReturn.RemoveListener(NewChain);
 		}
+
+		if (_onDeath != null)
+		{
+			_onDeath.RemoveListener(NewChain);
+		}
 	}
 
 	private void Update()

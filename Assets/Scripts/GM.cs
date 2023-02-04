@@ -88,6 +88,11 @@ public class GM : MonoBehaviour
 
     private void TogglePause(InputAction.CallbackContext obj)
     {
+        if(menuCanvas_.activeInHierarchy)
+        {
+            return;
+        }
+
         if (!paused_)
         {
             Pause();
