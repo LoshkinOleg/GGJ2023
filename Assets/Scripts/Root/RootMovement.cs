@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -9,8 +10,7 @@ public class RootMovement : MonoBehaviour
 	[SerializeField]
 	private float _rotationSpeed = 40f;
 
-	public UnityEvent _onAction = null;
-
+	public Action OnAction = null;
 
 	private InputActionsRoot _inputActions = null;
 	private Vector3 _moveDirection = Vector3.down;
@@ -25,13 +25,13 @@ public class RootMovement : MonoBehaviour
 		_inputActions.Gameplay.Enable();
 		_inputActions.Gameplay.Movement.performed += OnMovement;
 
-		_inputActions.Gameplay.Action.performed += OnAction;
+		_inputActions.Gameplay.Action.performed += OnActionPerformed;
 	}
 
 	private void OnDisable()
 	{
 		_inputActions.Gameplay.Movement.performed -= OnMovement;
-		_inputActions.Gameplay.Action.performed -= OnAction;
+		_inputActions.Gameplay.Action.performed -= OnActionPerformed;
 	}
 
 	private void Update()
@@ -48,23 +48,19 @@ public class RootMovement : MonoBehaviour
 
 	private void OnMovement(InputAction.CallbackContext obj)
 	{
-		_input =   obj.ReadValue<Vector2>();
+		_input = obj.ReadValue<Vector2>();
 		_input.y = Mathf.Floor(_input.y);
 		if (_input == Vector2.zero)
 		{
 			_input = _moveDirection;
 		}
-
 	}
 
-	private void OnAction(InputAction.CallbackContext obj)
+	private void OnActionPerformed(InputAction.CallbackContext obj)
 	{
-		// This is for debug. I need to change it
-		_onAction.Invoke();
-
+		if (OnAction != null)
+		{
+			OnAction.Invoke();
+		}
 	}
-
-
-
-
 }

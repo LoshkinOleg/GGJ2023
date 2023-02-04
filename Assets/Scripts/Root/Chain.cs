@@ -19,7 +19,7 @@ public class Chain : MonoBehaviour
 	private ChainElement _chainPrefab = null;
 
 	[SerializeField]
-	private Transform _head = null;
+	private Root _head = null;
 	[SerializeField]
 	private float _distance = .5f;
 
@@ -27,7 +27,6 @@ public class Chain : MonoBehaviour
 	private float _returnSpeed = 1f;
 	[SerializeField]
 	private float _returnChangeTarget = 1f;
-
 
 
 	private float _timer = 0f;
@@ -46,8 +45,6 @@ public class Chain : MonoBehaviour
 		_poolChain.GenerateAvailableInstances(100); // TODO number
 
 		AddChain();
-
-
 	}
 
 	private void OnEnable()
@@ -55,11 +52,20 @@ public class Chain : MonoBehaviour
 		// TODO change this number
 		for (int i = 0; i < 20; i++)
 		{
-			PosAndRot posAndRot = new PosAndRot();
-			posAndRot.pos = Vector3.zero;
-			posAndRot.rot = Quaternion.identity;
+			PosAndRot posAndRot = new PosAndRot
+			{
+				pos = Vector3.zero,
+				rot = Quaternion.identity
+			};
 			_headPos.Enqueue(posAndRot);
 		}
+
+		_head.Movement.OnAction += NewChain;
+	}
+
+	private void OnDisable()
+	{
+		_head.Movement.OnAction -= NewChain;
 	}
 
 
@@ -93,8 +99,8 @@ public class Chain : MonoBehaviour
 
 			// this is not performant at all
 			PosAndRot posAndRot = new PosAndRot();
-			posAndRot.pos = _head.position;
-			posAndRot.rot = _head.rotation;
+			posAndRot.pos = _head.transform.position;
+			posAndRot.rot = _head.transform.rotation;
 			_headPos.Enqueue(posAndRot);
 			_headPos.Dequeue();
 
@@ -115,7 +121,6 @@ public class Chain : MonoBehaviour
 		}
 	}
 
-
 	private void AddChain()
 	{
 
@@ -123,10 +128,6 @@ public class Chain : MonoBehaviour
 		newChainElement.gameObject.SetActive(true);
 		_elements.Add(newChainElement);
 	}
-
-
-
-
 
 	public void NewChain()
 	{
@@ -139,5 +140,4 @@ public class Chain : MonoBehaviour
 		}
 		_returning = !_returning;
 	}
-
 }
