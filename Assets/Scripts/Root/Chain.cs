@@ -13,8 +13,7 @@ public class Chain : MonoBehaviour
 
 	[SerializeField]
 	private int _chainPoolCount = 100;
-	[SerializeField]
-	private List<ChainElement> _elements = null;
+	private List<ChainElement> _elements = new List<ChainElement>();
 
 
 	[SerializeField]
@@ -33,6 +32,10 @@ public class Chain : MonoBehaviour
 	private float _returnSpeed = 1f;
 	[SerializeField]
 	private float _returnChangeTarget = 1f;
+
+	[SerializeField]
+	private FloatEvent _onReturn = null;
+
 
 
 	private float _timer = 0f;
@@ -69,11 +72,22 @@ public class Chain : MonoBehaviour
 		}
 
 		_head.Movement.OnAction += NewChain;
+
+
+		if(_onReturn !=null)
+		{
+			_onReturn.AddListener(NewChain);
+		}
 	}
 
 	private void OnDisable()
 	{
 		_head.Movement.OnAction -= NewChain;
+
+		if (_onReturn != null)
+		{
+			_onReturn.RemoveListener(NewChain);
+		}
 	}
 
 
@@ -82,7 +96,7 @@ public class Chain : MonoBehaviour
 		// This code is ugly :(
 		if (_returning)
 		{
-			if (_returningCount < _elements.Count -1)
+			if (_returningCount < _elements.Count - 1)
 			{
 				_head.transform.position = Vector3.Lerp(_head.transform.position, _elements[_elements.Count - 1 - _returningCount].transform.position, _returnSpeed * Time.deltaTime);
 			}
@@ -90,7 +104,7 @@ public class Chain : MonoBehaviour
 			if (_timer < 0f)
 			{
 				_returningCount++;
-				if (_returningCount >= _elements.Count -1)
+				if (_returningCount >= _elements.Count - 1)
 				{
 
 					NewChain();
@@ -155,7 +169,6 @@ public class Chain : MonoBehaviour
 
 		List<Vector3> positions = new List<Vector3>();
 		_elementsPosition.Add(positions);
-
 	}
 
 	public void NewChain()
@@ -170,5 +183,10 @@ public class Chain : MonoBehaviour
 			AddChain();
 		}
 		_returning = !_returning;
+	}
+
+	public void NewChain(float value)
+	{
+		NewChain();
 	}
 }
