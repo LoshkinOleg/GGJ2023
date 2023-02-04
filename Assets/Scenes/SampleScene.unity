@@ -614,8 +614,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 856765000}
-  m_LocalRotation: {x: 0.030694623, y: 0.021805117, z: -0.00066977483, w: 0.99929076}
-  m_LocalPosition: {x: -6.412101, y: 15.349011, z: -129.29779}
+  m_LocalRotation: {x: 0.030694623, y: 0.021805115, z: -0.0006697748, w: 0.99929076}
+  m_LocalPosition: {x: -6.4121003, y: 15.349011, z: -128.69778}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -712,8 +712,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.030694623, y: 0.021805117, z: -0.00066977483, w: 0.99929076}
-  m_LocalPosition: {x: -6.412101, y: 15.349011, z: -129.29779}
+  m_LocalRotation: {x: 0.030694623, y: 0.021805115, z: -0.0006697748, w: 0.99929076}
+  m_LocalPosition: {x: -6.4121003, y: 15.349011, z: -128.69778}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -858,14 +858,6 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 585071379543480120, guid: 310972999f02af1418df8437326b9491, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 585071379543480120, guid: 310972999f02af1418df8437326b9491, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 585071379543480120, guid: 310972999f02af1418df8437326b9491, type: 3}
       propertyPath: m_LocalPosition.x
       value: 44.06
       objectReference: {fileID: 0}
@@ -875,7 +867,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 585071379543480120, guid: 310972999f02af1418df8437326b9491, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.93
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 585071379543480120, guid: 310972999f02af1418df8437326b9491, type: 3}
       propertyPath: m_LocalRotation.w
@@ -908,14 +900,6 @@ PrefabInstance:
     - target: {fileID: 3086380938257517182, guid: 310972999f02af1418df8437326b9491, type: 3}
       propertyPath: m_Name
       value: Object_Water
-      objectReference: {fileID: 0}
-    - target: {fileID: 5975624120215624194, guid: 310972999f02af1418df8437326b9491, type: 3}
-      propertyPath: m_Radius
-      value: 2.22
-      objectReference: {fileID: 0}
-    - target: {fileID: 5975624120215624195, guid: 310972999f02af1418df8437326b9491, type: 3}
-      propertyPath: _onlyActivation
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 310972999f02af1418df8437326b9491, type: 3}
