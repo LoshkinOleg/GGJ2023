@@ -53,6 +53,8 @@ public class Chain : MonoBehaviour
 	private List<List<Vector3>> _elementsPosition = new List<List<Vector3>>();
 	private List<ReturnBranch> _returnBranchs = new List<ReturnBranch>();
 
+	private bool _active = false;
+
 	private void Start()
 	{
 		_poolChain = PoolsManager.Instance.CreatePool("Chain", true, _chainPrefab);
@@ -81,6 +83,8 @@ public class Chain : MonoBehaviour
 		{
 			_onReturn.AddListener(NewChain);
 		}
+
+		Activate(false);
 	}
 
 	private void OnDisable()
@@ -94,8 +98,35 @@ public class Chain : MonoBehaviour
 	}
 
 
+	public void Activate(bool value)
+	{
+		_active = value;
+
+		if (_active)
+		{
+			_returningCount = 0;
+			_timer = -0.01f;
+			_elements.Clear();
+
+			AddLine();
+			AddChain();
+
+			_head.Movement.Activate = true;
+		}
+		else
+		{
+			_head.Movement.Activate = false;
+		}
+
+	}
+
 	private void Update()
 	{
+		if(!_active)
+		{
+			return;
+		}
+
 		// This code is ugly :(
 		if (_returning)
 		{
@@ -131,6 +162,11 @@ public class Chain : MonoBehaviour
 
 	private void LateUpdate()
 	{
+		if (!_active)
+		{
+			return;
+		}
+
 		if (!_returning)
 		{
 			_headPos.Enqueue(_head.transform.position);

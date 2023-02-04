@@ -18,7 +18,14 @@ public class GM : MonoBehaviour
         }
     }
 
+
+    [Header("UI")]
     [SerializeField] private GameObject menuCanvas_;
+
+
+    [Header("References")]
+    [SerializeField]
+    private Chain _chain = null;
 
     // private bool gameStarted_ = false;
     private bool paused_ = true;
@@ -49,7 +56,7 @@ public class GM : MonoBehaviour
 
     public void Register(object caller)
     {
-        
+
     }
 
     public void ShowMenu()
@@ -68,7 +75,11 @@ public class GM : MonoBehaviour
     {
         // Oleg@Nacho: reset map and root. Reset any potential score.
         // gameStarted_ = true;
+
+        _chain.Activate(true);
         paused_ = false;
+
+        HideMenu();
     }
 
     public void Quit()
