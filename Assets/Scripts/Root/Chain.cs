@@ -93,6 +93,8 @@ public class Chain : MonoBehaviour
 
 	private void Update()
 	{
+		if (GM.Instance.Paused) return;
+
 		// This code is ugly :(
 		if (_returning)
 		{

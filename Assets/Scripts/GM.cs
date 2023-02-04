@@ -4,10 +4,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 // using System.Runtime.Hosting;
 using System.Runtime.InteropServices;
+// using System.Security.Policy;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using System.Linq;
 
 public class GM : MonoBehaviour
 {
+    private void MyPrint(object o)
+    {
+        UnityEngine.Debug.Log(o);
+    }
+
     // Singleton.
     private static GM _instance;
     public static GM Instance
@@ -19,6 +27,8 @@ public class GM : MonoBehaviour
     }
 
     [SerializeField] private GameObject menuCanvas_;
+
+    private InputActionsRoot _inputActions = null;
 
     // private bool gameStarted_ = false;
     private bool paused_ = true;
@@ -34,7 +44,7 @@ public class GM : MonoBehaviour
         }
     }
 
-    private void Awake()
+    private void OnEnable()
     {
         if (_instance != null && _instance != this)
         {
@@ -45,30 +55,53 @@ public class GM : MonoBehaviour
         {
             _instance = this;
         }
+
+        if (_inputActions == null)
+        {
+            _inputActions = new InputActionsRoot();
+        }
+        _inputActions.Menu.Enable();
+        _inputActions.Menu.Menu.performed += TogglePause;
     }
 
-    public void Register(object caller)
+    private void Awake()
     {
         
     }
 
-    public void ShowMenu()
+    private void TogglePause(InputAction.CallbackContext obj)
     {
-        menuCanvas_.SetActive(true);
-        paused_ = true;
-    }
-
-    public void HideMenu()
-    {
-        menuCanvas_.SetActive(false);
-        paused_ = false;
+        if (!paused_)
+        {
+            Pause();
+        }
+        else
+        {
+            Unpause();
+        }
     }
 
     public void Restart()
     {
-        // Oleg@Nacho: reset map and root. Reset any potential score.
-        // gameStarted_ = true;
+        var list = FindObjectsOfType<MonoBehaviour>().OfType<IResetable>();
+        foreach (var item in list)
+        {
+            item.Reset();
+        }
         paused_ = false;
+        menuCanvas_.SetActive(false);
+    }
+
+    public void Unpause()
+    {
+        paused_ = false;
+        menuCanvas_.SetActive(false);
+    }
+
+    public void Pause()
+    {
+        paused_ = true;
+        menuCanvas_.SetActive(true);
     }
 
     public void Quit()

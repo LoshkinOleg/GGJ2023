@@ -44,15 +44,6 @@ public partial class @InputActionsRoot : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Menu"",
-                    ""type"": ""Button"",
-                    ""id"": ""7c72787d-7c8b-4a85-88fc-2ff8a4c14e87"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -143,25 +134,42 @@ public partial class @InputActionsRoot : IInputActionCollection2, IDisposable
                     ""action"": ""Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
+                }
+            ]
+        },
+        {
+            ""name"": ""Menu"",
+            ""id"": ""5e467ec8-4c2f-4846-9629-42c8aa2fe412"",
+            ""actions"": [
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""9045e7b3-56d6-4399-a28b-25f37ac14c24"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""88fc86af-33c2-4780-a222-bc72954cf792"",
+                    ""id"": ""658630ef-8597-4beb-9e15-eba9a55c8f55"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gameplay"",
+                    ""groups"": """",
                     ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5ed783e7-b133-458b-b026-c61485f39c79"",
+                    ""id"": ""c547c156-7766-4318-9f46-8c2f0488e6d5"",
                     ""path"": ""<Gamepad>/select"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gameplay"",
+                    ""groups"": """",
                     ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -192,7 +200,9 @@ public partial class @InputActionsRoot : IInputActionCollection2, IDisposable
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
         m_Gameplay_Action = m_Gameplay.FindAction("Action", throwIfNotFound: true);
-        m_Gameplay_Menu = m_Gameplay.FindAction("Menu", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_Menu = m_Menu.FindAction("Menu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -254,14 +264,12 @@ public partial class @InputActionsRoot : IInputActionCollection2, IDisposable
     private IGameplayActions m_GameplayActionsCallbackInterface;
     private readonly InputAction m_Gameplay_Movement;
     private readonly InputAction m_Gameplay_Action;
-    private readonly InputAction m_Gameplay_Menu;
     public struct GameplayActions
     {
         private @InputActionsRoot m_Wrapper;
         public GameplayActions(@InputActionsRoot wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
         public InputAction @Action => m_Wrapper.m_Gameplay_Action;
-        public InputAction @Menu => m_Wrapper.m_Gameplay_Menu;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -277,9 +285,6 @@ public partial class @InputActionsRoot : IInputActionCollection2, IDisposable
                 @Action.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAction;
                 @Action.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAction;
                 @Action.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAction;
-                @Menu.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenu;
-                @Menu.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenu;
-                @Menu.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenu;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -290,13 +295,43 @@ public partial class @InputActionsRoot : IInputActionCollection2, IDisposable
                 @Action.started += instance.OnAction;
                 @Action.performed += instance.OnAction;
                 @Action.canceled += instance.OnAction;
+            }
+        }
+    }
+    public GameplayActions @Gameplay => new GameplayActions(this);
+
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private IMenuActions m_MenuActionsCallbackInterface;
+    private readonly InputAction m_Menu_Menu;
+    public struct MenuActions
+    {
+        private @InputActionsRoot m_Wrapper;
+        public MenuActions(@InputActionsRoot wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Menu => m_Wrapper.m_Menu_Menu;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void SetCallbacks(IMenuActions instance)
+        {
+            if (m_Wrapper.m_MenuActionsCallbackInterface != null)
+            {
+                @Menu.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnMenu;
+                @Menu.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnMenu;
+                @Menu.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnMenu;
+            }
+            m_Wrapper.m_MenuActionsCallbackInterface = instance;
+            if (instance != null)
+            {
                 @Menu.started += instance.OnMenu;
                 @Menu.performed += instance.OnMenu;
                 @Menu.canceled += instance.OnMenu;
             }
         }
     }
-    public GameplayActions @Gameplay => new GameplayActions(this);
+    public MenuActions @Menu => new MenuActions(this);
     private int m_GameplaySchemeIndex = -1;
     public InputControlScheme GameplayScheme
     {
@@ -310,6 +345,9 @@ public partial class @InputActionsRoot : IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnAction(InputAction.CallbackContext context);
+    }
+    public interface IMenuActions
+    {
         void OnMenu(InputAction.CallbackContext context);
     }
 }
