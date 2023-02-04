@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectInteractable : MonoBehaviour
 {
 
     [SerializeField]
-    private FloatEvent _onAction = null;
+    private List<FloatEvent> _onActions = null;
 
     [SerializeField]
     private float _value = 0f;
@@ -21,10 +22,13 @@ public class ObjectInteractable : MonoBehaviour
             return;
         }
 
-        if (_onAction != null)
+        for (int i = 0; i < _onActions.Count; i++)
         {
-            _onAction.Raise(_value);
-        }
+			if (_onActions[i] != null)
+			{
+                _onActions[i].Raise(_value);
+			}
+		}
 
         _active = false;
     }

@@ -60,7 +60,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a449363ce55634faecb0c4a6f3c40b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onAction: {fileID: 11400000, guid: 310fc242c2a01dd49a36626f62daf54e, type: 2}
+  _onActions:
+  - {fileID: 11400000, guid: 310fc242c2a01dd49a36626f62daf54e, type: 2}
   _value: 0
   _onlyActivation: 0
 --- !u!54 &5059545005590094350
