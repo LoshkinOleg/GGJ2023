@@ -26,9 +26,13 @@ public class GM : MonoBehaviour
         }
     }
 
+
+    [Header("UI")]
     [SerializeField] private GameObject menuCanvas_;
 
+
     private InputActionsRoot _inputActions = null;
+
 
     // private bool gameStarted_ = false;
     private bool paused_ = true;
@@ -66,7 +70,7 @@ public class GM : MonoBehaviour
 
     private void Awake()
     {
-        
+
     }
 
     private void TogglePause(InputAction.CallbackContext obj)
@@ -83,10 +87,13 @@ public class GM : MonoBehaviour
 
     public void Restart()
     {
+        paused_ = false;
+
+
         var list = FindObjectsOfType<MonoBehaviour>().OfType<IResetable>();
         foreach (var item in list)
         {
-            item.Reset();
+            item.ResetObject();
         }
         paused_ = false;
         menuCanvas_.SetActive(false);

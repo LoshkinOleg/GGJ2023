@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IResetable
 {
-    public void Reset();
+    public void ResetObject();
 }

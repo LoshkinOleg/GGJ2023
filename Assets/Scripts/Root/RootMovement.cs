@@ -17,7 +17,7 @@ public class RootMovement : MonoBehaviour, IResetable
 	private Vector2 _input = Vector2.down;
 	private bool _active = true;
 
-	public void Reset()
+	public void ResetObject()
 	{
 		// Oleg@Nacho: implement this.
 		UnityEngine.Debug.Log("Resetting");
