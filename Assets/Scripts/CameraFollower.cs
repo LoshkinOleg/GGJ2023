@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraFollower : MonoBehaviour
 {
-    [SerializeField] private float distance_ = 250.0f;
+    [SerializeField] private float distance_ = 100.0f;
     [SerializeField] private GameObject target_;
 
     private void print(object o)
@@ -21,6 +21,6 @@ public class CameraFollower : MonoBehaviour
     void Update()
     {
         var targetPos = target_.transform.position;
-        print(targetPos);
+        this.transform.position = target_.transform.position + new Vector3(0.0f, 0.0f, -distance_);
     }
 }
