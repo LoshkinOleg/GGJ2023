@@ -15,6 +15,10 @@ public class RootMovement : MonoBehaviour
 	private InputActionsRoot _inputActions = null;
 	private Vector3 _moveDirection = Vector3.down;
 	private Vector2 _input = Vector2.down;
+	private bool _active = true;
+
+
+	public bool Activate { get { return _active; } set { _active = value; } }
 
 	private void OnEnable()
 	{
@@ -36,6 +40,10 @@ public class RootMovement : MonoBehaviour
 
 	private void Update()
 	{
+		if(!_active)
+		{
+			return;
+		}
 		_moveDirection = Vector2.Lerp(_moveDirection, _input, _rotationSpeed * Time.deltaTime);
 		_moveDirection.Normalize();
 

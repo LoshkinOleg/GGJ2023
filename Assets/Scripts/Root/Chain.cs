@@ -1,14 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Chain : MonoBehaviour
 {
-	private struct PosAndRot
+	private struct ReturnBranch
 	{
-		public Vector3 pos;
+		public List<ChainElement> elements;
+		public int returningCount;
 	}
 
 	[SerializeField]
@@ -49,6 +51,7 @@ public class Chain : MonoBehaviour
 	private int _returningCount = 0;
 
 	private List<List<Vector3>> _elementsPosition = new List<List<Vector3>>();
+	private List<ReturnBranch> _returnBranchs = new List<ReturnBranch>();
 
 	private void Start()
 	{
@@ -74,7 +77,7 @@ public class Chain : MonoBehaviour
 		_head.Movement.OnAction += NewChain;
 
 
-		if(_onReturn !=null)
+		if (_onReturn != null)
 		{
 			_onReturn.AddListener(NewChain);
 		}
@@ -103,13 +106,25 @@ public class Chain : MonoBehaviour
 			_timer -= Time.deltaTime;
 			if (_timer < 0f)
 			{
+				_timer = _returnChangeTarget;
 				_returningCount++;
+
 				if (_returningCount >= _elements.Count - 1)
 				{
+					if (_returnBranchs.Count > 0)
+					{
+						_returningCount = _returnBranchs[_returnBranchs.Count - 1].returningCount;
+						_elements = _returnBranchs[_returnBranchs.Count - 1].elements;
 
-					NewChain();
+						_returnBranchs.RemoveAt(_returnBranchs.Count - 1);
+					}
+					else
+					{
+						_head.transform.position = _elements[0].transform.position;
+						NewChain();
+					}
 				}
-				_timer = _returnChangeTarget;
+
 			}
 		}
 	}
@@ -124,15 +139,6 @@ public class Chain : MonoBehaviour
 			_timer -= Time.deltaTime;
 			if (_timer < 0f)
 			{
-				/*for (int i = _elements.Count - 1; i > 0; i--)
-				{
-					_elements[i].transform.position = (_elements[i - 1].transform.position);
-					_elementsPosition[_elementsPosition.Count - 1][i] = _elements[i].transform.position;
-				}
-
-				_elements[0].transform.position = (_head.transform.position);
-				_elementsPosition[_elementsPosition.Count - 1][0] = _elements[0].transform.position;
-				*/
 				AddChain();
 
 				_timer = _distance;
@@ -175,14 +181,28 @@ public class Chain : MonoBehaviour
 	{
 		if (_returning)
 		{
+			ReturnBranch newReturnBranch = new ReturnBranch();
+			newReturnBranch.elements = new List<ChainElement>(_elements);
+			newReturnBranch.returningCount = _returningCount;
+
+			_returnBranchs.Add(newReturnBranch);
+
+
 			_returningCount = 0;
-			_timer = 0f;
+			_timer = -0.01f;
 			_elements.Clear();
 
 			AddLine();
 			AddChain();
+
+			_head.Movement.Activate = true;
 		}
 		_returning = !_returning;
+
+		if(_returning)
+		{
+			_head.Movement.Activate = false;
+		}
 	}
 
 	public void NewChain(float value)
