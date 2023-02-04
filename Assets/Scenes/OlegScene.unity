@@ -261,7 +261,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuCanvas_: {fileID: 1081519388}
-  _chain: {fileID: 1167607700}
 --- !u!4 &627372050
 Transform:
   m_ObjectHideFlags: 0

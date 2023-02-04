@@ -1,11 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Chain : MonoBehaviour
+public class Chain : MonoBehaviour , IResetable
 {
 	private struct ReturnBranch
 	{
@@ -53,7 +49,6 @@ public class Chain : MonoBehaviour
 	private List<List<Vector3>> _elementsPosition = new List<List<Vector3>>();
 	private List<ReturnBranch> _returnBranchs = new List<ReturnBranch>();
 
-	private bool _active = false;
 
 	private void Start()
 	{
@@ -84,7 +79,7 @@ public class Chain : MonoBehaviour
 			_onReturn.AddListener(NewChain);
 		}
 
-		Activate(false);
+		_head.Movement.Activate = false;
 	}
 
 	private void OnDisable()
@@ -97,32 +92,9 @@ public class Chain : MonoBehaviour
 		}
 	}
 
-
-	public void Activate(bool value)
-	{
-		_active = value;
-
-		if (_active)
-		{
-			_returningCount = 0;
-			_timer = -0.01f;
-			_elements.Clear();
-
-			AddLine();
-			AddChain();
-
-			_head.Movement.Activate = true;
-		}
-		else
-		{
-			_head.Movement.Activate = false;
-		}
-
-	}
-
 	private void Update()
 	{
-		if(!_active)
+		if (GM.Instance.Paused)
 		{
 			return;
 		}
@@ -162,7 +134,7 @@ public class Chain : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		if (!_active)
+		if (GM.Instance.Paused)
 		{
 			return;
 		}
@@ -235,7 +207,7 @@ public class Chain : MonoBehaviour
 		}
 		_returning = !_returning;
 
-		if(_returning)
+		if (_returning)
 		{
 			_head.Movement.Activate = false;
 		}
@@ -244,5 +216,17 @@ public class Chain : MonoBehaviour
 	public void NewChain(float value)
 	{
 		NewChain();
+	}
+
+	public void ResetObject()
+	{
+		_returningCount = 0;
+		_timer = -0.01f;
+		_elements.Clear();
+
+		AddLine();
+		AddChain();
+
+		_head.Movement.Activate = true;
 	}
 }

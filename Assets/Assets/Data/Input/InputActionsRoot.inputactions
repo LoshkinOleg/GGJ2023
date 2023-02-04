@@ -22,15 +22,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Menu",
-                    "type": "Button",
-                    "id": "7c72787d-7c8b-4a85-88fc-2ff8a4c14e87",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -121,25 +112,42 @@
                     "action": "Action",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
+                }
+            ]
+        },
+        {
+            "name": "Menu",
+            "id": "5e467ec8-4c2f-4846-9629-42c8aa2fe412",
+            "actions": [
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "9045e7b3-56d6-4399-a28b-25f37ac14c24",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
                 {
                     "name": "",
-                    "id": "88fc86af-33c2-4780-a222-bc72954cf792",
+                    "id": "658630ef-8597-4beb-9e15-eba9a55c8f55",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gameplay",
+                    "groups": "",
                     "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "5ed783e7-b133-458b-b026-c61485f39c79",
+                    "id": "c547c156-7766-4318-9f46-8c2f0488e6d5",
                     "path": "<Gamepad>/select",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gameplay",
+                    "groups": "",
                     "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false

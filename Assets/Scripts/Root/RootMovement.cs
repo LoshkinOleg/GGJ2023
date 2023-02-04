@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class RootMovement : MonoBehaviour
+public class RootMovement : MonoBehaviour, IResetable
 {
 	[SerializeField]
 	private float _speed = 0f;
@@ -16,6 +16,12 @@ public class RootMovement : MonoBehaviour
 	private Vector3 _moveDirection = Vector3.down;
 	private Vector2 _input = Vector2.down;
 	private bool _active = true;
+
+	public void ResetObject()
+	{
+		// Oleg@Nacho: implement this.
+		UnityEngine.Debug.Log("Resetting");
+    }
 
 
 	public bool Activate { get { return _active; } set { _active = value; } }
@@ -30,7 +36,7 @@ public class RootMovement : MonoBehaviour
 		_inputActions.Gameplay.Movement.performed += OnMovement;
 
 		_inputActions.Gameplay.Action.performed += OnActionPerformed;
-	}
+    }
 
 	private void OnDisable()
 	{
