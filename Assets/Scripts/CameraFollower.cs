@@ -7,10 +7,10 @@ public class CameraFollower : MonoBehaviour
     [SerializeField] private float distance_ = 100.0f;
     [SerializeField] private GameObject target_;
 
-    private void print(object o)
+    /*private void print(object o)
     {
         UnityEngine.Debug.Log(o);
-    }
+    }*/
     // Start is called before the first frame update
     void Start()
     {

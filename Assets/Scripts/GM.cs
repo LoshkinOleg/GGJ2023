@@ -20,7 +20,7 @@ public class GM : MonoBehaviour
 
     [SerializeField] private GameObject menuCanvas_;
 
-    private bool gameStarted_ = false;
+    // private bool gameStarted_ = false;
     private bool paused_ = true;
     public bool Paused
     {
@@ -67,7 +67,7 @@ public class GM : MonoBehaviour
     public void Restart()
     {
         // Oleg@Nacho: reset map and root. Reset any potential score.
-        gameStarted_ = true;
+        // gameStarted_ = true;
         paused_ = false;
     }
 
