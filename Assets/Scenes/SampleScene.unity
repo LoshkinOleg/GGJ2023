@@ -697,22 +697,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2431182844569764515, guid: 503895768adc36d45a10093b48810e50, type: 3}
-      propertyPath: _dmgPerSecond
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2431182845412057885, guid: 503895768adc36d45a10093b48810e50, type: 3}
       propertyPath: m_Name
       value: Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 2431182845412057886, guid: 503895768adc36d45a10093b48810e50, type: 3}
-      propertyPath: _chain
-      value: 
-      objectReference: {fileID: 4096448984914873382}
-    - target: {fileID: 2431182845412057886, guid: 503895768adc36d45a10093b48810e50, type: 3}
-      propertyPath: _onDeath
-      value: 
-      objectReference: {fileID: 11400000, guid: 50ae300ce758de54885d4c08cb4fe9dd, type: 2}
     - target: {fileID: 2431182845412057886, guid: 503895768adc36d45a10093b48810e50, type: 3}
       propertyPath: menuCanvas_
       value: 
@@ -824,17 +812,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 175ab82887825cf409eb9c615dc17172, type: 3}
---- !u!114 &4096448984914873382 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4096448985307726612, guid: 175ab82887825cf409eb9c615dc17172, type: 3}
-  m_PrefabInstance: {fileID: 4096448984914873381}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb69c85a77789804b8f9761f3bdd9a6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &9122941444412335996
 PrefabInstance:
   m_ObjectHideFlags: 0
