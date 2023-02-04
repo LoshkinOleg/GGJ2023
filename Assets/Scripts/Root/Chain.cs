@@ -9,14 +9,20 @@ public class Chain : MonoBehaviour
 	private struct PosAndRot
 	{
 		public Vector3 pos;
-		public Quaternion rot;
 	}
 
-
+	[SerializeField]
+	private int _chainPoolCount = 100;
 	[SerializeField]
 	private List<ChainElement> _elements = null;
+
+
 	[SerializeField]
 	private ChainElement _chainPrefab = null;
+	[SerializeField]
+	private ChainLine _linePrefab = null;
+
+	private List<ChainLine> _lines = new List<ChainLine>();
 
 	[SerializeField]
 	private Root _head = null;
@@ -31,19 +37,26 @@ public class Chain : MonoBehaviour
 
 	private float _timer = 0f;
 
-	private readonly Queue<PosAndRot> _headPos = new Queue<PosAndRot>();
+	private readonly Queue<Vector3> _headPos = new Queue<Vector3>();
 	private IPool<ChainElement> _poolChain = null;
+	private IPool<ChainLine> _poolLines = null;
 
 
 	private bool _returning = false;
 	private int _returningCount = 0;
 
+	private List<List<Vector3>> _elementsPosition = new List<List<Vector3>>();
 
 	private void Start()
 	{
 		_poolChain = PoolsManager.Instance.CreatePool("Chain", true, _chainPrefab);
-		_poolChain.GenerateAvailableInstances(100); // TODO number
+		_poolChain.GenerateAvailableInstances(_chainPoolCount);
 
+		_poolLines = PoolsManager.Instance.CreatePool("Lines", true, _linePrefab);
+		_poolLines.GenerateAvailableInstances(10);
+
+
+		AddLine();
 		AddChain();
 	}
 
@@ -52,12 +65,7 @@ public class Chain : MonoBehaviour
 		// TODO change this number
 		for (int i = 0; i < 20; i++)
 		{
-			PosAndRot posAndRot = new PosAndRot
-			{
-				pos = Vector3.zero,
-				rot = Quaternion.identity
-			};
-			_headPos.Enqueue(posAndRot);
+			_headPos.Enqueue(Vector3.zero);
 		}
 
 		_head.Movement.OnAction += NewChain;
@@ -76,7 +84,7 @@ public class Chain : MonoBehaviour
 		{
 			if (_returningCount < _elements.Count -1)
 			{
-				_head.transform.position = Vector3.Lerp(_head.transform.position, _elements[_returningCount].transform.position, _returnSpeed * Time.deltaTime);
+				_head.transform.position = Vector3.Lerp(_head.transform.position, _elements[_elements.Count - 1 - _returningCount].transform.position, _returnSpeed * Time.deltaTime);
 			}
 			_timer -= Time.deltaTime;
 			if (_timer < 0f)
@@ -96,27 +104,33 @@ public class Chain : MonoBehaviour
 	{
 		if (!_returning)
 		{
-
-			// this is not performant at all
-			PosAndRot posAndRot = new PosAndRot();
-			posAndRot.pos = _head.transform.position;
-			posAndRot.rot = _head.transform.rotation;
-			_headPos.Enqueue(posAndRot);
+			_headPos.Enqueue(_head.transform.position);
 			_headPos.Dequeue();
 
 			_timer -= Time.deltaTime;
 			if (_timer < 0f)
 			{
-				for (int i = _elements.Count - 1; i > 0; i--)
+				/*for (int i = _elements.Count - 1; i > 0; i--)
 				{
-					_elements[i].transform.SetPositionAndRotation(_elements[i - 1].transform.position, _elements[i - 1].transform.rotation);
+					_elements[i].transform.position = (_elements[i - 1].transform.position);
+					_elementsPosition[_elementsPosition.Count - 1][i] = _elements[i].transform.position;
 				}
 
-				_elements[0].transform.SetPositionAndRotation(_head.transform.position, _head.transform.rotation);
-
+				_elements[0].transform.position = (_head.transform.position);
+				_elementsPosition[_elementsPosition.Count - 1][0] = _elements[0].transform.position;
+				*/
 				AddChain();
 
 				_timer = _distance;
+			}
+
+
+			_elementsPosition[_elementsPosition.Count - 1][_elements.Count - 1] = _elements[_elements.Count - 1].transform.position = (_head.transform.position);
+
+			if (_lines.Count > 0)
+			{
+				_lines[_lines.Count - 1].Line.positionCount = _elementsPosition[_elementsPosition.Count - 1].Count;
+				_lines[_lines.Count - 1].Line.SetPositions(_elementsPosition[_elementsPosition.Count - 1].ToArray());
 			}
 		}
 	}
@@ -127,6 +141,21 @@ public class Chain : MonoBehaviour
 		ChainElement newChainElement = _poolChain.GetInstance();
 		newChainElement.gameObject.SetActive(true);
 		_elements.Add(newChainElement);
+
+		newChainElement.transform.position = _head.transform.position;
+		_elementsPosition[_elementsPosition.Count - 1].Add(_head.transform.position);
+	}
+
+	private void AddLine()
+	{
+
+		ChainLine newLine = _poolLines.GetInstance();
+		newLine.gameObject.SetActive(true);
+		_lines.Add(newLine);
+
+		List<Vector3> positions = new List<Vector3>();
+		_elementsPosition.Add(positions);
+
 	}
 
 	public void NewChain()
@@ -136,6 +165,8 @@ public class Chain : MonoBehaviour
 			_returningCount = 0;
 			_timer = 0f;
 			_elements.Clear();
+
+			AddLine();
 			AddChain();
 		}
 		_returning = !_returning;

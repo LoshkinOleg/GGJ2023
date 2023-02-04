@@ -246,8 +246,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb69c85a77789804b8f9761f3bdd9a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _chainPoolCount: 100
   _elements: []
   _chainPrefab: {fileID: 7702851322359866888, guid: 57cbc9e08d3741b428ba2d7b09c1193d, type: 3}
+  _linePrefab: {fileID: 2551437741477102683, guid: 6e8c3384e7d890f43bb5ae2140073ba0, type: 3}
   _head: {fileID: 2026095928}
   _distance: 0.5
   _returnSpeed: 100
@@ -402,50 +404,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2026095932, guid: e0c80b1e9c5d32e46badc63ea4c06757, type: 3}
-      propertyPath: _speed
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2026095932, guid: e0c80b1e9c5d32e46badc63ea4c06757, type: 3}
-      propertyPath: _rotationSpeed
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2026095932, guid: e0c80b1e9c5d32e46badc63ea4c06757, type: 3}
-      propertyPath: _onAction.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2026095932, guid: e0c80b1e9c5d32e46badc63ea4c06757, type: 3}
-      propertyPath: _onAction.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2026095932, guid: e0c80b1e9c5d32e46badc63ea4c06757, type: 3}
-      propertyPath: _onAction.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 731549489}
-    - target: {fileID: 2026095932, guid: e0c80b1e9c5d32e46badc63ea4c06757, type: 3}
-      propertyPath: _onAction.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2026095932, guid: e0c80b1e9c5d32e46badc63ea4c06757, type: 3}
-      propertyPath: _onAction.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: NewChain
-      objectReference: {fileID: 0}
-    - target: {fileID: 2026095932, guid: e0c80b1e9c5d32e46badc63ea4c06757, type: 3}
-      propertyPath: _onAction.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Chain, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2026095932, guid: e0c80b1e9c5d32e46badc63ea4c06757, type: 3}
-      propertyPath: _onAction.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 2214262795788691102, guid: e0c80b1e9c5d32e46badc63ea4c06757, type: 3}
       propertyPath: m_Name
       value: RootTip
       objectReference: {fileID: 0}
-    - target: {fileID: 5169990210223098484, guid: e0c80b1e9c5d32e46badc63ea4c06757, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f6d6cf0567e66ad47a4f3347470b3fc4, type: 2}
     - target: {fileID: 6072457059718574303, guid: e0c80b1e9c5d32e46badc63ea4c06757, type: 3}
       propertyPath: m_RootOrder
       value: 4
