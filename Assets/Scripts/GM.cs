@@ -110,7 +110,9 @@ public class GM : MonoBehaviour
         }
         paused_ = false;
         menuCanvas_.SetActive(false);
-    }
+
+		_inputActions.Menu.Enable();
+	}
 
     public void Unpause()
     {
@@ -133,6 +135,9 @@ public class GM : MonoBehaviour
 
     private void OnDeath( float value)
     {
+		menuCanvas_.SetActive(true);
+		_inputActions.Menu.Enable();
 
-    }
+        Pause();
+	}
 }

@@ -697,6 +697,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2431182844569764515, guid: 503895768adc36d45a10093b48810e50, type: 3}
+      propertyPath: _dmgPerSecond
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2431182845412057885, guid: 503895768adc36d45a10093b48810e50, type: 3}
       propertyPath: m_Name
       value: Manager
@@ -705,6 +709,10 @@ PrefabInstance:
       propertyPath: _chain
       value: 
       objectReference: {fileID: 4096448984914873382}
+    - target: {fileID: 2431182845412057886, guid: 503895768adc36d45a10093b48810e50, type: 3}
+      propertyPath: _onDeath
+      value: 
+      objectReference: {fileID: 11400000, guid: 50ae300ce758de54885d4c08cb4fe9dd, type: 2}
     - target: {fileID: 2431182845412057886, guid: 503895768adc36d45a10093b48810e50, type: 3}
       propertyPath: menuCanvas_
       value: 

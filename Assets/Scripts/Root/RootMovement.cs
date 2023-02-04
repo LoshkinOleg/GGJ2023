@@ -21,6 +21,9 @@ public class RootMovement : MonoBehaviour, IResetable
 	{
 		// Oleg@Nacho: implement this.
 		UnityEngine.Debug.Log("Resetting");
+
+		transform.position = Vector3.zero;
+		_active = true;
     }
 
 
@@ -46,7 +49,7 @@ public class RootMovement : MonoBehaviour, IResetable
 
 	private void Update()
 	{
-		if(!_active)
+		if(!_active || GM.Instance.Paused)
 		{
 			return;
 		}
