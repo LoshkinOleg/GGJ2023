@@ -30,6 +30,8 @@ public class GM : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject menuCanvas_;
 
+    [SerializeField]
+    private FloatEvent _onDeath = null;
 
     private InputActionsRoot _inputActions = null;
 
@@ -66,12 +68,23 @@ public class GM : MonoBehaviour
         }
         _inputActions.Menu.Enable();
         _inputActions.Menu.Menu.performed += TogglePause;
+
+
+        if(_onDeath!=null)
+        {
+            _onDeath.AddListener(OnDeath);
+        }
     }
 
-    private void Awake()
+    private void OnDisable()
     {
+		_inputActions.Menu.Menu.performed -= TogglePause;
 
-    }
+		if (_onDeath != null)
+		{
+			_onDeath.RemoveListener(OnDeath);
+		}
+	}
 
     private void TogglePause(InputAction.CallbackContext obj)
     {
@@ -115,5 +128,11 @@ public class GM : MonoBehaviour
     {
         UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
+    }
+
+
+    private void OnDeath( float value)
+    {
+
     }
 }

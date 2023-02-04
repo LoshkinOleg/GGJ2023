@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LifeSystem : MonoBehaviour
+public class LifeSystem : MonoBehaviour, IResetable
 {
 	[SerializeField]
 	private float _initialLife = 5f;
@@ -41,7 +41,7 @@ public class LifeSystem : MonoBehaviour
 
 	private void Update()
 	{
-		if (_currentLife < 0f)
+		if(GM.Instance.Paused || _currentLife < 0f)
 		{
 			return;
 		}
@@ -64,5 +64,8 @@ public class LifeSystem : MonoBehaviour
 		_currentLife += value;
 	}
 
-
+	public void ResetObject()
+	{
+		_currentLife = _initialLife;
+	}
 }

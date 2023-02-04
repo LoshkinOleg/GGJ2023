@@ -42,7 +42,6 @@ public class Chain : MonoBehaviour , IResetable
 	private IPool<ChainElement> _poolChain = null;
 	private IPool<ChainLine> _poolLines = null;
 
-
 	private bool _returning = false;
 	private int _returningCount = 0;
 
@@ -223,6 +222,9 @@ public class Chain : MonoBehaviour , IResetable
 		_returningCount = 0;
 		_timer = -0.01f;
 		_elements.Clear();
+
+		_poolChain.ReturnAllInUseInstances();
+		_poolLines.ReturnAllInUseInstances();
 
 		AddLine();
 		AddChain();
