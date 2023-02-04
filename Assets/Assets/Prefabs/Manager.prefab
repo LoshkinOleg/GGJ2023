@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuCanvas_: {fileID: 0}
+  _menuCamera: {fileID: 0}
+  _gameplayCamera: {fileID: 0}
   _onDeath: {fileID: 11400000, guid: 50ae300ce758de54885d4c08cb4fe9dd, type: 2}
 --- !u!114 &2431182844569764515
 MonoBehaviour:
@@ -60,6 +62,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialLife: 5
-  _dmgPerSecond: 1
+  _dmgPerSecond: 0.1
   _onDeath: {fileID: 11400000, guid: 50ae300ce758de54885d4c08cb4fe9dd, type: 2}
   _onAddLife: {fileID: 11400000, guid: e6fc8fb2b2452054fbda4e0a4d47feb5, type: 2}

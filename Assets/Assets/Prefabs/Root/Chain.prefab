@@ -48,7 +48,8 @@ MonoBehaviour:
   _chainPrefab: {fileID: 7702851322359866888, guid: 57cbc9e08d3741b428ba2d7b09c1193d, type: 3}
   _linePrefab: {fileID: 2551437741477102683, guid: 6e8c3384e7d890f43bb5ae2140073ba0, type: 3}
   _head: {fileID: 0}
-  _distance: 0.2
+  _distance: 0.05
   _returnSpeed: 20
-  _returnChangeTarget: 0.1
+  _returnChangeTarget: 0.05
   _onReturn: {fileID: 11400000, guid: 310fc242c2a01dd49a36626f62daf54e, type: 2}
+  _onDeath: {fileID: 0}
