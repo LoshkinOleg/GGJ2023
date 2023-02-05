@@ -11,6 +11,8 @@ public class MusicSystem : MonoBehaviour
     [SerializeField] float _timeForLowest = 10.0f;
 
 
+    [SerializeField] float _transitionTime = 1f;
+
     [SerializeField]
     private AudioMixerSnapshot _menuSnapshot;
     [SerializeField]
@@ -65,16 +67,16 @@ public class MusicSystem : MonoBehaviour
         switch (status)
         {
             case Status.MENU:
-                _menuSnapshot.TransitionTo(1);
+                _menuSnapshot.TransitionTo(_transitionTime);
                 break;
             case Status.START:
-                _startSnapshot.TransitionTo(1);
+                _startSnapshot.TransitionTo(_transitionTime);
                 break;
             case Status.DESHYDRATE:
-                _deshydrateSnapshot.TransitionTo(1);
+                _deshydrateSnapshot.TransitionTo(_transitionTime);
                 break;
             case Status.DEAD:
-                _deadSnapshot.TransitionTo(1);
+                _deadSnapshot.TransitionTo(_transitionTime);
                 break;
             default:
                 break;
