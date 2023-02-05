@@ -286,11 +286,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2214262795788691102, guid: e0c80b1e9c5d32e46badc63ea4c06757, type: 3}
   m_PrefabInstance: {fileID: 2026095927}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &664223800 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7066429033857410254, guid: 978fb775b9be6be41a7a3e03b5998b58, type: 3}
-  m_PrefabInstance: {fileID: 3536308511088259066}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,8 +525,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 664223800}
-  m_Follow: {fileID: 664223800}
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 30
     OrthographicSize: 10
@@ -973,6 +968,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2076361047}
   - component: {fileID: 2076361046}
+  - component: {fileID: 2076361048}
   m_Layer: 0
   m_Name: CM Gameplay
   m_TagString: Untagged
@@ -1034,6 +1030,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2076361048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076361045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 2
+  m_ChannelMask: 1
+  m_Gain: 0.5
+  m_Use2DDistance: 0
+  m_UseCameraSpace: 1
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 0.5
+    m_FrequencyGain: 1
+    m_Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1001 &2431182844569764513
 PrefabInstance:
   m_ObjectHideFlags: 0
