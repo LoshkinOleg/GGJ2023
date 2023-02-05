@@ -148,6 +148,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9122941444412335998, guid: ba881dd01fe30d94ebd174588178ba90, type: 3}
+      propertyPath: _actionSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 08c5bedad80af5f48a0a723a0d20ed14, type: 3}
     m_RemovedComponents:
     - {fileID: 9122941444412335999, guid: ba881dd01fe30d94ebd174588178ba90, type: 3}
     - {fileID: 8075256924745335564, guid: ba881dd01fe30d94ebd174588178ba90, type: 3}
