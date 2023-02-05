@@ -21,6 +21,8 @@ public class MusicSystem : MonoBehaviour
     private AudioMixerSnapshot _deshydrateSnapshot;
     [SerializeField]
     private AudioMixerSnapshot _deadSnapshot;
+    [SerializeField]
+    private AudioMixerSnapshot _loseSnapshot;
 
     public enum Status
     {
@@ -51,7 +53,7 @@ public class MusicSystem : MonoBehaviour
         }else if(_lifeSystem.CurrentLife >= _timeForLow)
         {
             ChangeStatus(Status.DESHYDRATE);
-        }else if (_lifeSystem.CurrentLife <= _timeForLowest)
+        }else if (_lifeSystem.CurrentLife > 0f)
         {
             ChangeStatus(Status.DEAD);
         }
@@ -78,7 +80,7 @@ public class MusicSystem : MonoBehaviour
             case Status.DEAD:
                 _deadSnapshot.TransitionTo(_transitionTime);
                 break;
-            default:
+			default:
                 break;
         }
     }

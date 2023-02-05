@@ -30,13 +30,20 @@ public class GM : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject menuCanvas_;
+    [SerializeField] private GameObject endCanvas_;
 
     [Header("Cameras")]
     [SerializeField]
     private CinemachineVirtualCamera _menuCamera = null;
 	[SerializeField]
 	private CinemachineVirtualCamera _gameplayCamera = null;
+	[SerializeField]
+	private CinemachineVirtualCamera _endCamera = null;
 
+
+    [Header("flower")]
+    [SerializeField]
+    private Animator _flowerAnimator = null;
 
 
 	[SerializeField]
@@ -76,7 +83,7 @@ public class GM : MonoBehaviour
             _inputActions = new InputActionsRoot();
         }
         _inputActions.Menu.Enable();
-        _inputActions.Menu.Menu.performed += TogglePause;
+        //_inputActions.Menu.Menu.performed += TogglePause;
 
 
         if(_onDeath!=null)
@@ -86,11 +93,12 @@ public class GM : MonoBehaviour
 
         _gameplayCamera.gameObject.SetActive(false);
         _menuCamera.gameObject.SetActive(true);
-    }
+		_endCamera.gameObject.SetActive(false);
+	}
 
     private void OnDisable()
     {
-		_inputActions.Menu.Menu.performed -= TogglePause;
+		//_inputActions.Menu.Menu.performed -= TogglePause;
 
 		if (_onDeath != null)
 		{
@@ -158,14 +166,32 @@ public class GM : MonoBehaviour
 
     private void OnDeath( float value)
     {
-		menuCanvas_.SetActive(true);
+		endCanvas_.SetActive(true);
 		_inputActions.Menu.Enable();
 
         Pause();
 
+		menuCanvas_.SetActive(false);
+
 		_gameplayCamera.gameObject.SetActive(false);
-		_menuCamera.gameObject.SetActive(true);
+		_menuCamera.gameObject.SetActive(false);
+        _endCamera.gameObject.SetActive(true);
+
+        _flowerAnimator.SetTrigger("Death");
 	}
 
+
+    public void ShowMenu()
+    {
+		endCanvas_.SetActive(false);
+		menuCanvas_.SetActive(true);
+
+
+		_gameplayCamera.gameObject.SetActive(false);
+		_menuCamera.gameObject.SetActive(true);
+		_endCamera.gameObject.SetActive(false);
+
+		_flowerAnimator.SetTrigger("Restart");
+	}
 
 }

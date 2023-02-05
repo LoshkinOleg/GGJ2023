@@ -70,17 +70,6 @@ public partial class @InputActionsRoot : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""061c81ea-9464-4467-8496-71b96ab944b4"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": ""down"",
                     ""id"": ""31e777dc-82c9-4d22-9e36-bd4d9cf956d8"",
                     ""path"": ""<Keyboard>/s"",
@@ -166,7 +155,18 @@ public partial class @InputActionsRoot : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c547c156-7766-4318-9f46-8c2f0488e6d5"",
-                    ""path"": ""<Gamepad>/select"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9815536c-afca-4a56-8e98-bbb41c05be9d"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
