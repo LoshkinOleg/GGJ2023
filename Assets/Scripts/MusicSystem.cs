@@ -24,13 +24,20 @@ public class MusicSystem : MonoBehaviour
     [SerializeField]
     private AudioMixerSnapshot _loseSnapshot;
 
+    [SerializeField]
+    private AudioClip _onDieSFX;
+    [SerializeField]
+    private AudioSource _sfxSource;
+
+    [System.Serializable]
     public enum Status
     {
         NONE,
         MENU,
         START,
         DESHYDRATE,
-        DEAD
+        DEAD,
+        DIE
     }
 
     private Status _currentStatus = Status.NONE;
@@ -42,12 +49,14 @@ public class MusicSystem : MonoBehaviour
 
     private void Update()
     {
-        if(GM.Instance.Paused)
-        {
-            ChangeStatus(Status.MENU);
-            return;
-        }
-        if(_lifeSystem.CurrentLife >= _timeForHighest)
+
+		if (GM.Instance.Paused)
+		{
+			//ChangeStatus(Status.MENU);
+			return;
+		}
+
+		if (_lifeSystem.CurrentLife >= _timeForHighest)
         {
             ChangeStatus(Status.START);
         }else if(_lifeSystem.CurrentLife >= _timeForLow)
@@ -56,8 +65,13 @@ public class MusicSystem : MonoBehaviour
         }else if (_lifeSystem.CurrentLife > 0f)
         {
             ChangeStatus(Status.DEAD);
+        }if(_lifeSystem.CurrentLife <= 1f)
+        {
+            ChangeStatus(Status.DIE);
         }
-    }
+
+
+	}
 
     public void ChangeStatus(Status status)
     {
@@ -79,6 +93,10 @@ public class MusicSystem : MonoBehaviour
                 break;
             case Status.DEAD:
                 _deadSnapshot.TransitionTo(_transitionTime);
+                break;
+            case Status.DIE:
+                _sfxSource.PlayOneShot(_onDieSFX);
+                _loseSnapshot.TransitionTo(_transitionTime);
                 break;
 			default:
                 break;

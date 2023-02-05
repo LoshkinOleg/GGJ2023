@@ -41,6 +41,10 @@ public class GM : MonoBehaviour
 	private CinemachineVirtualCamera _endCamera = null;
 
 
+
+    public MusicSystem _music;
+
+
     [Header("flower")]
     [SerializeField]
     private Animator _flowerAnimator = null;
@@ -83,10 +87,10 @@ public class GM : MonoBehaviour
             _inputActions = new InputActionsRoot();
         }
         _inputActions.Menu.Enable();
-        //_inputActions.Menu.Menu.performed += TogglePause;
+		//_inputActions.Menu.Menu.performed += TogglePause;
+		_music.ChangeStatus(MusicSystem.Status.MENU);
 
-
-        if(_onDeath!=null)
+		if (_onDeath!=null)
         {
             _onDeath.AddListener(OnDeath);
         }
@@ -192,7 +196,10 @@ public class GM : MonoBehaviour
 		_menuCamera.gameObject.SetActive(true);
 		_endCamera.gameObject.SetActive(false);
 
+
 		_flowerAnimator.SetTrigger("Restart");
+
+        _music.ChangeStatus(MusicSystem.Status.MENU);
 	}
 
 }
