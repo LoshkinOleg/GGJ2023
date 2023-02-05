@@ -166,12 +166,13 @@ public class GM : MonoBehaviour
 
     private void OnDeath( float value)
     {
-		endCanvas_.SetActive(true);
+
 		_inputActions.Menu.Enable();
 
         Pause();
 
 		menuCanvas_.SetActive(false);
+		endCanvas_.SetActive(true);
 
 		_gameplayCamera.gameObject.SetActive(false);
 		_menuCamera.gameObject.SetActive(false);

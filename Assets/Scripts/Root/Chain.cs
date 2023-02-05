@@ -252,6 +252,8 @@ public class Chain : MonoBehaviour , IResetable
 		_poolChain.ReturnAllInUseInstances();
 		_poolLines.ReturnAllInUseInstances();
 
+
+		_head.transform.position = Vector3.zero;
 		AddLine();
 		AddChain();
 
