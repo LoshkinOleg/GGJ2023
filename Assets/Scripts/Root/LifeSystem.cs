@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LifeSystem : MonoBehaviour, IResetable
@@ -31,11 +28,13 @@ public class LifeSystem : MonoBehaviour, IResetable
 		}
 	}
 
+	public float InitialLife { get { return _initialLife; } }
+
 	private void OnEnable()
 	{
 		_currentLife = _initialLife;
 
-		if(_onAddLife!=null)
+		if (_onAddLife != null)
 		{
 			_onAddLife.AddListener(AddLife);
 		}
@@ -51,12 +50,13 @@ public class LifeSystem : MonoBehaviour, IResetable
 
 	private void Update()
 	{
-		if(GM.Instance.Paused || _currentLife < 0f)
+		if (GM.Instance.Paused || _currentLife < 0f)
 		{
 			return;
 		}
 
 		_currentLife -= _dmgPerSecond * Time.deltaTime;
+
 
 		if (_currentLife < 0f)
 		{
@@ -72,10 +72,12 @@ public class LifeSystem : MonoBehaviour, IResetable
 	private void AddLife(float value)
 	{
 		_currentLife += value;
+
 	}
 
 	public void ResetObject()
 	{
 		_currentLife = _initialLife;
+
 	}
 }
