@@ -38,6 +38,12 @@ public class Chain : MonoBehaviour , IResetable
 
 
 
+	[Header("Colors")]
+	[SerializeField]
+	private LifeSystem _lifeSystem = null;
+	[SerializeField]
+	private Gradient _lifeColor;
+
 	private float _timer = 0f;
 
 	private readonly Queue<Vector3> _headPos = new Queue<Vector3>();
@@ -141,6 +147,14 @@ public class Chain : MonoBehaviour , IResetable
 
 			}
 		}
+
+
+		for (int i = 0; i < _lines.Count; i++)
+		{
+			_lines[i].Line.startColor = _lines[i].Line.endColor =  _lifeColor.Evaluate( _lifeSystem.CurrentLife / _lifeSystem.InitialLife);
+		}
+
+
 	}
 
 	private void LateUpdate()

@@ -572,6 +572,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3e0f18e449cb14caeb3d31e805ea30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &928530886 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2431182844569764515, guid: 503895768adc36d45a10093b48810e50, type: 3}
+  m_PrefabInstance: {fileID: 2431182844569764513}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd311c00a6342fe4193f2cd85461ab56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,6 +1071,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2431182844569764515, guid: 503895768adc36d45a10093b48810e50, type: 3}
+      propertyPath: _dmgPerSecond
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2431182845412057885, guid: 503895768adc36d45a10093b48810e50, type: 3}
       propertyPath: m_Name
       value: Manager
@@ -1247,6 +1262,10 @@ PrefabInstance:
       propertyPath: _head
       value: 
       objectReference: {fileID: 2026095928}
+    - target: {fileID: 4096448985307726612, guid: 175ab82887825cf409eb9c615dc17172, type: 3}
+      propertyPath: _lifeSystem
+      value: 
+      objectReference: {fileID: 928530886}
     - target: {fileID: 4096448985307726613, guid: 175ab82887825cf409eb9c615dc17172, type: 3}
       propertyPath: m_Name
       value: Chain
