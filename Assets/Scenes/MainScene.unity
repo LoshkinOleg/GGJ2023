@@ -1444,7 +1444,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2031572912}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.057858992, y: -72.944466, z: 30.780985}
+  m_LocalPosition: {x: 0.058167413, y: -72.37913, z: 6.6543517}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1593,7 +1593,7 @@ PrefabInstance:
       objectReference: {fileID: -7032753554397872131, guid: ca594495d6278a14ab792a8434e9ae72, type: 2}
     - target: {fileID: 2431182844569764515, guid: 503895768adc36d45a10093b48810e50, type: 3}
       propertyPath: _initialLife
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2431182845412057885, guid: 503895768adc36d45a10093b48810e50, type: 3}
       propertyPath: m_Name
@@ -1689,10 +1689,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 793024406133454969, guid: 978fb775b9be6be41a7a3e03b5998b58, type: 3}
-      propertyPath: m_Name
-      value: Camera Point
-      objectReference: {fileID: 0}
     - target: {fileID: 3536308510133538457, guid: 978fb775b9be6be41a7a3e03b5998b58, type: 3}
       propertyPath: m_Name
       value: Terrain

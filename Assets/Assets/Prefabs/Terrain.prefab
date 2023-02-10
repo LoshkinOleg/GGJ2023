@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2904406045219831555}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Camera Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5019,7 +5019,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 93cdbfe0375239149b8995ac13f44b5b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 53.2
+      value: 11.44
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 93cdbfe0375239149b8995ac13f44b5b, type: 3}
       propertyPath: m_LocalRotation.w

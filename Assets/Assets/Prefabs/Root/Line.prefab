@@ -101,13 +101,22 @@ LineRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1
-        value: 0.052633286
-        inSlope: 0
-        outSlope: 0
+        time: 0.42523572
+        value: 0.7044464
+        inSlope: -1.8978703
+        outSlope: -1.8978703
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.30049872
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.1
+        inSlope: -0.0012939177
+        outSlope: -0.0012939177
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.23813432
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2

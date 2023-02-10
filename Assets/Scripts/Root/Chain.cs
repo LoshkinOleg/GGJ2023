@@ -5,24 +5,18 @@ public class Chain : MonoBehaviour , IResetable
 {
 	private struct ReturnBranch
 	{
-		public List<ChainElement> elements;
+		public List<Vector3> positions;
 		public int returningCount;
 	}
 
 	[SerializeField]
-	private int _chainPoolCount = 100;
-	private List<ChainElement> _elements = new List<ChainElement>();
+	private Root _head = null;
 
-
-	[SerializeField]
-	private ChainElement _chainPrefab = null;
+	[Header("Lines")]
 	[SerializeField]
 	private ChainLine _linePrefab = null;
-
-	private List<ChainLine> _lines = new List<ChainLine>();
-
 	[SerializeField]
-	private Root _head = null;
+	private int _linesPoolSize = 10;
 	[SerializeField]
 	private float _distance = .5f;
 
@@ -31,53 +25,59 @@ public class Chain : MonoBehaviour , IResetable
 	[SerializeField]
 	private float _returnChangeTarget = 1f;
 
-	[SerializeField]
-	private FloatEvent _onReturn = null;
-	[SerializeField]
-	private FloatEvent _onDeath = null;
-
-
-
 	[Header("Colors")]
 	[SerializeField]
 	private LifeSystem _lifeSystem = null;
 	[SerializeField]
 	private Gradient _lifeColor;
 
+	[Header("Events")]
+	[SerializeField]
+	private FloatEvent _onReturn = null;
+	[SerializeField]
+	private FloatEvent _onDeath = null;
+
 	private float _timer = 0f;
-
-	private readonly Queue<Vector3> _headPos = new Queue<Vector3>();
-	private IPool<ChainElement> _poolChain = null;
-	private IPool<ChainLine> _poolLines = null;
-
 	private bool _returning = false;
 	private int _returningCount = 0;
 
-	private List<List<Vector3>> _elementsPosition = new List<List<Vector3>>();
-	private List<ReturnBranch> _returnBranchs = new List<ReturnBranch>();
+
+	private IPool<ChainLine> _poolLines = null;
+	private List<ChainLine> _lines = new List<ChainLine>();
+	private List<Vector3> _elements = new List<Vector3>();
+	private List<ReturnBranch> _returnBranches = new List<ReturnBranch>();
 
 
 	private void Start()
 	{
-		_poolChain = PoolsManager.Instance.CreatePool("Chain", true, _chainPrefab);
-		_poolChain.GenerateAvailableInstances(_chainPoolCount);
-
 		_poolLines = PoolsManager.Instance.CreatePool("Lines", true, _linePrefab);
-		_poolLines.GenerateAvailableInstances(10);
-
+		_poolLines.GenerateAvailableInstances(_linesPoolSize);
 
 		AddLine();
 		AddChain();
 	}
 
+	public void ResetObject()
+	{
+		_returningCount = 0;
+		_timer = -0.01f;
+		_elements.Clear();
+
+		_returning = false;
+		_returnBranches.Clear();
+
+		_poolLines.ReturnAllInUseInstances();
+
+
+		_head.transform.position = Vector3.zero;
+		AddLine();
+		AddChain();
+
+		_head.Movement.Activate = true;
+	}
+
 	private void OnEnable()
 	{
-		// TODO change this number
-		for (int i = 0; i < 20; i++)
-		{
-			_headPos.Enqueue(Vector3.zero);
-		}
-
 		_head.Movement.OnAction += NewChain;
 
 
@@ -116,12 +116,13 @@ public class Chain : MonoBehaviour , IResetable
 			return;
 		}
 
-		// This code is ugly :(
+
 		if (_returning)
 		{
 			if (_returningCount < _elements.Count - 1)
 			{
-				_head.transform.position = Vector3.Lerp(_head.transform.position, _elements[_elements.Count - 1 - _returningCount].transform.position, _returnSpeed * Time.deltaTime);
+				// TODO : clean this. IDK if I need this lerp
+				_head.transform.position = Vector3.Lerp(_head.transform.position, _elements[_elements.Count - 1 - _returningCount], _returnSpeed * Time.deltaTime);
 			}
 			_timer -= Time.deltaTime;
 			if (_timer < 0f)
@@ -131,16 +132,16 @@ public class Chain : MonoBehaviour , IResetable
 
 				if (_returningCount >= _elements.Count - 1)
 				{
-					if (_returnBranchs.Count > 0)
+					if (_returnBranches.Count > 0)
 					{
-						_returningCount = _returnBranchs[_returnBranchs.Count - 1].returningCount;
-						_elements = _returnBranchs[_returnBranchs.Count - 1].elements;
+						_returningCount = _returnBranches[^1].returningCount;
+						_elements = _returnBranches[^1].positions;
 
-						_returnBranchs.RemoveAt(_returnBranchs.Count - 1);
+						_returnBranches.RemoveAt(_returnBranches.Count - 1);
 					}
 					else
 					{
-						_head.transform.position = _elements[0].transform.position;
+						_head.transform.position = _elements[0];
 						NewChain();
 					}
 				}
@@ -155,20 +156,8 @@ public class Chain : MonoBehaviour , IResetable
 		}
 
 
-	}
-
-	private void LateUpdate()
-	{
-		if (GM.Instance.Paused)
-		{
-			return;
-		}
-
 		if (!_returning)
 		{
-			_headPos.Enqueue(_head.transform.position);
-			_headPos.Dequeue();
-
 			_timer -= Time.deltaTime;
 			if (_timer < 0f)
 			{
@@ -178,48 +167,52 @@ public class Chain : MonoBehaviour , IResetable
 			}
 
 
-			_elementsPosition[_elementsPosition.Count - 1][_elements.Count - 1] = _elements[_elements.Count - 1].transform.position = (_head.transform.position);
+			_elements[^1] = _head.transform.position;
 
 			if (_lines.Count > 0)
 			{
-				_lines[_lines.Count - 1].Line.positionCount = _elementsPosition[_elementsPosition.Count - 1].Count;
-				_lines[_lines.Count - 1].Line.SetPositions(_elementsPosition[_elementsPosition.Count - 1].ToArray());
+				// We update the full line positions if we don't match the length of the line, if not we update only the last element.
+				LineRenderer line = _lines[^1].Line;
+				if (line.positionCount == _elements.Count)
+				{
+					line.SetPosition(line.positionCount - 1, _elements[^1]);
+				}
+				else
+				{
+					line.positionCount = _elements.Count;
+					line.SetPositions(_elements.ToArray());
+				}
 			}
 		}
 	}
 
 	private void AddChain()
 	{
-
-		ChainElement newChainElement = _poolChain.GetInstance();
-		newChainElement.gameObject.SetActive(true);
-		_elements.Add(newChainElement);
-
-		newChainElement.transform.position = _head.transform.position;
-		_elementsPosition[_elementsPosition.Count - 1].Add(_head.transform.position);
+		_elements.Add(_head.transform.position);
 	}
 
 	private void AddLine()
 	{
-
 		ChainLine newLine = _poolLines.GetInstance();
 		newLine.gameObject.SetActive(true);
 		_lines.Add(newLine);
+	}
 
-		List<Vector3> positions = new List<Vector3>();
-		_elementsPosition.Add(positions);
+	public void NewChain(float value)
+	{
+		NewChain();
 	}
 
 	public void NewChain()
 	{
 		if (_returning)
 		{
-			ReturnBranch newReturnBranch = new ReturnBranch();
-			newReturnBranch.elements = new List<ChainElement>(_elements);
-			newReturnBranch.returningCount = _returningCount;
-
-			_returnBranchs.Add(newReturnBranch);
-
+			ReturnBranch newReturnBranch = new ReturnBranch
+			{
+				positions = new List<Vector3>(_elements),
+				returningCount = _returningCount
+			};
+			_returnBranches.Add(newReturnBranch);
 
 			_returningCount = 0;
 			_timer = -0.01f;
@@ -237,27 +230,4 @@ public class Chain : MonoBehaviour , IResetable
 			_head.Movement.Activate = false;
 		}
 	}
-
-	public void NewChain(float value)
-	{
-		NewChain();
-	}
-
-	public void ResetObject()
-	{
-		_returningCount = 0;
-		_timer = -0.01f;
-		_elements.Clear();
-
-		_poolChain.ReturnAllInUseInstances();
-		_poolLines.ReturnAllInUseInstances();
-
-
-		_head.transform.position = Vector3.zero;
-		AddLine();
-		AddChain();
-
-		_head.Movement.Activate = true;
-	}
-
 }
