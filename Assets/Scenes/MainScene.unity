@@ -586,6 +586,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1036420690793491019, guid: 2bf5610d72f73144f8954454d580c3d8, type: 3}
   m_PrefabInstance: {fileID: 783697536}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &783697543 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 783697543, guid: 2bf5610d72f73144f8954454d580c3d8, type: 3}
+  m_PrefabInstance: {fileID: 783697536}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783697537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20b4d303f1ddc143a4e836189e588e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &856765000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1479,7 +1490,7 @@ PrefabInstance:
       objectReference: {fileID: -7032753554397872131, guid: ca594495d6278a14ab792a8434e9ae72, type: 2}
     - target: {fileID: 2431182844569764515, guid: 503895768adc36d45a10093b48810e50, type: 3}
       propertyPath: _initialLife
-      value: 5
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2431182845412057885, guid: 503895768adc36d45a10093b48810e50, type: 3}
       propertyPath: m_Name
@@ -1494,6 +1505,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7969955}
     - target: {fileID: 2431182845412057886, guid: 503895768adc36d45a10093b48810e50, type: 3}
+      propertyPath: _endCanvas
+      value: 
+      objectReference: {fileID: 2896726034572970721}
+    - target: {fileID: 2431182845412057886, guid: 503895768adc36d45a10093b48810e50, type: 3}
       propertyPath: endCanvas_
       value: 
       objectReference: {fileID: 2896726034572970715}
@@ -1501,6 +1516,10 @@ PrefabInstance:
       propertyPath: _menuCamera
       value: 
       objectReference: {fileID: 856765001}
+    - target: {fileID: 2431182845412057886, guid: 503895768adc36d45a10093b48810e50, type: 3}
+      propertyPath: _menuCanvas
+      value: 
+      objectReference: {fileID: 783697543}
     - target: {fileID: 2431182845412057886, guid: 503895768adc36d45a10093b48810e50, type: 3}
       propertyPath: menuCanvas_
       value: 
@@ -1568,6 +1587,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9082009966722487905, guid: 9de1c4566da9958418edce4f7e663f27, type: 3}
   m_PrefabInstance: {fileID: 6213554652644121786}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2896726034572970721 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2896726034572970721, guid: 9de1c4566da9958418edce4f7e663f27, type: 3}
+  m_PrefabInstance: {fileID: 6213554652644121786}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2896726034572970715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20b4d303f1ddc143a4e836189e588e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3536308511088259066
 PrefabInstance:
   m_ObjectHideFlags: 0

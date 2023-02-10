@@ -44,20 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb69c85a77789804b8f9761f3bdd9a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chainPoolCount: 100
-  _chainPrefab: {fileID: 7702851322359866888, guid: 57cbc9e08d3741b428ba2d7b09c1193d, type: 3}
-  _linePrefab: {fileID: 2551437741477102683, guid: 6e8c3384e7d890f43bb5ae2140073ba0, type: 3}
   _head: {fileID: 0}
+  _linePrefab: {fileID: 2551437741477102683, guid: 6e8c3384e7d890f43bb5ae2140073ba0, type: 3}
+  _linesPoolSize: 20
   _distance: 0.05
   _returnSpeed: 20
   _returnChangeTarget: 0.05
-  _onReturn: {fileID: 11400000, guid: 310fc242c2a01dd49a36626f62daf54e, type: 2}
-  _onDeath: {fileID: 0}
+  _initialWidth: 1.5
+  _minWidth: 0.4
   _lifeSystem: {fileID: 0}
   _lifeColor:
     serializedVersion: 2
-    key0: {r: 1, g: 0.0032320505, b: 0, a: 1}
-    key1: {r: 1, g: 0.028765667, b: 0, a: 1}
+    key0: {r: 0.9245283, g: 0.033163927, b: 0.02965462, a: 1}
+    key1: {r: 0.92549026, g: 0.03137255, b: 0.03137255, a: 1}
     key2: {r: 1, g: 0.50956327, b: 0, a: 0}
     key3: {r: 1, g: 0.5504771, b: 0, a: 0}
     key4: {r: 0.98761374, g: 0.9349451, b: 0, a: 0}
@@ -83,3 +82,5 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 7
     m_NumAlphaKeys: 2
+  _onReturn: {fileID: 11400000, guid: 310fc242c2a01dd49a36626f62daf54e, type: 2}
+  _onDeath: {fileID: 0}

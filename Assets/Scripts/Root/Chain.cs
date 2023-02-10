@@ -1,12 +1,16 @@
+using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chain : MonoBehaviour , IResetable
+public class Chain : MonoBehaviour, IResetable
 {
+	[System.Serializable]
 	private struct ReturnBranch
 	{
 		public List<Vector3> positions;
 		public int returningCount;
+		public ChainLine line;
+		public float width;
 	}
 
 	[SerializeField]
@@ -25,6 +29,11 @@ public class Chain : MonoBehaviour , IResetable
 	[SerializeField]
 	private float _returnChangeTarget = 1f;
 
+	[SerializeField]
+	private float _initialWidth = 1.5f;
+	[SerializeField]
+	private float _minWidth = .2f;
+
 	[Header("Colors")]
 	[SerializeField]
 	private LifeSystem _lifeSystem = null;
@@ -40,6 +49,8 @@ public class Chain : MonoBehaviour , IResetable
 	private float _timer = 0f;
 	private bool _returning = false;
 	private int _returningCount = 0;
+
+	private float _currentWidth = 0f;
 
 
 	private IPool<ChainLine> _poolLines = null;
@@ -136,13 +147,14 @@ public class Chain : MonoBehaviour , IResetable
 					{
 						_returningCount = _returnBranches[^1].returningCount;
 						_elements = _returnBranches[^1].positions;
+						_currentWidth = _returnBranches[^1].width;
 
 						_returnBranches.RemoveAt(_returnBranches.Count - 1);
 					}
 					else
 					{
 						_head.transform.position = _elements[0];
-						NewChain();
+						NewZeroChain();
 					}
 				}
 
@@ -152,7 +164,7 @@ public class Chain : MonoBehaviour , IResetable
 
 		for (int i = 0; i < _lines.Count; i++)
 		{
-			_lines[i].Line.startColor = _lines[i].Line.endColor =  _lifeColor.Evaluate( _lifeSystem.CurrentLife / _lifeSystem.InitialLife);
+			_lines[i].Line.startColor = _lines[i].Line.endColor = _lifeColor.Evaluate(_lifeSystem.CurrentLife / _lifeSystem.InitialLife);
 		}
 
 
@@ -196,30 +208,68 @@ public class Chain : MonoBehaviour , IResetable
 		ChainLine newLine = _poolLines.GetInstance();
 		newLine.gameObject.SetActive(true);
 		_lines.Add(newLine);
-	}
 
+		float maxWidth = _initialWidth;
+		if (_returnBranches.Count > 0)
+		{
+			ReturnBranch branch = _returnBranches[^1];
+			maxWidth = branch.width;
+
+		}
+		else
+		{
+			newLine.Line.widthMultiplier = _initialWidth;
+		}
+		float width = maxWidth;
+		if (_elements.Count > 0)
+		{
+			width = maxWidth * _lines[^1].Line.widthCurve.Evaluate((float)(_elements.Count - _returningCount) / (float)_elements.Count);
+		}
+
+		if (width < _minWidth)
+		{
+			width = _minWidth;
+		}
+		newLine.Line.widthMultiplier = width;
+
+	}
 	public void NewChain(float value)
 	{
-		NewChain();
+		NewChainFull();
+	}
+	public void NewChain()
+	{
+		NewChainFull();
+	}
+	public void NewZeroChain()
+	{
+		NewChainFull(true);
 	}
 
-	public void NewChain()
+	public void NewChainFull(bool skip = false)
 	{
 		if (_returning)
 		{
-			ReturnBranch newReturnBranch = new ReturnBranch
+			if (!skip)
 			{
-				positions = new List<Vector3>(_elements),
-				returningCount = _returningCount
-			};
-			_returnBranches.Add(newReturnBranch);
+				ReturnBranch newReturnBranch = new ReturnBranch
+				{
+					positions = new List<Vector3>(_elements),
+					returningCount = _returningCount,
+					line = _lines[^1],
+					width = _lines[^1].Line.widthMultiplier
+				};
+				_returnBranches.Add(newReturnBranch);
+			}
+			AddLine();
+			_elements.Clear();
+			_timer = -0.01f;
 
 			_returningCount = 0;
-			_timer = -0.01f;
-			_elements.Clear();
 
-			AddLine();
+
 			AddChain();
+
 
 			_head.Movement.Activate = true;
 		}
