@@ -55,6 +55,9 @@ MonoBehaviour:
   _audioSource: {fileID: 5147889715333040701}
   _actionSFX: {fileID: 0}
   _rewardSFX: {fileID: 0}
+  _graphic: {fileID: 5401431772671839437}
+  _punchIntensity: 3
+  _punchDuration: 0.5
 --- !u!54 &5059545005590094350
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -176,7 +179,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5401431772671839437}
-  - component: {fileID: 8075256924745335564}
   m_Layer: 7
   m_Name: Graphics
   m_TagString: Untagged
@@ -193,22 +195,9 @@ Transform:
   m_GameObject: {fileID: 6583688811860430224}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2623359716192447045}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8075256924745335564
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6583688811860430224}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

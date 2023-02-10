@@ -1,7 +1,9 @@
+using DG.Tweening;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class ObjectInteractable : MonoBehaviour
+public class ObjectInteractable : MonoBehaviour, IResetable
 {
 
 	[SerializeField]
@@ -23,12 +25,25 @@ public class ObjectInteractable : MonoBehaviour
 	[SerializeField]
 	private AudioClip _rewardSFX = null;
 
+	[Header("Animation")]
+	[SerializeField]
+	private Transform _graphic = null;
+	[SerializeField]
+	private float _punchIntensity = 1f;
+	[SerializeField]
+	private float _punchDuration = .3f;
 
 	private bool _active = true;
 
+	public void ResetObject()
+	{
+		_graphic.DOKill();
+		_graphic.localScale = Vector3.one;
+	}
+
 	private void OnTriggerEnter(Collider other)
 	{
-
+		_graphic.DOPunchRotation(Vector3.one * _punchIntensity, _punchDuration);
 
 		for (int i = 0; i < _onActions.Count; i++)
 		{
