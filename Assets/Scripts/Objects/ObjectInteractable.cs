@@ -38,11 +38,13 @@ public class ObjectInteractable : MonoBehaviour, IResetable
 	public void ResetObject()
 	{
 		_graphic.DOKill();
-		_graphic.localScale = Vector3.one;
+		_graphic.localRotation = Quaternion.identity;
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
+		_graphic.DOKill();
+		_graphic.localRotation = Quaternion.identity;
 		_graphic.DOPunchRotation(Vector3.one * _punchIntensity, _punchDuration);
 
 		for (int i = 0; i < _onActions.Count; i++)

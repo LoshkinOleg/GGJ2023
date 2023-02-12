@@ -8,7 +8,6 @@ public class Chain : MonoBehaviour, IResetable
 	{
 		public List<Vector3> positions;
 		public int returningCount;
-		public ChainLine line;
 		public float width;
 	}
 
@@ -211,13 +210,7 @@ public class Chain : MonoBehaviour, IResetable
 		float maxWidth = _initialWidth;
 		if (_returnBranches.Count > 0)
 		{
-			ReturnBranch branch = _returnBranches[^1];
-			maxWidth = branch.width;
-
-		}
-		else
-		{
-			newLine.Line.widthMultiplier = _initialWidth;
+			maxWidth = _currentWidth;
 		}
 		float width = maxWidth;
 		if (_elements.Count > 0)
@@ -230,6 +223,7 @@ public class Chain : MonoBehaviour, IResetable
 			width = _minWidth;
 		}
 		newLine.Line.widthMultiplier = width;
+		_currentWidth = width;
 
 	}
 	public void NewChain(float value)
@@ -255,7 +249,6 @@ public class Chain : MonoBehaviour, IResetable
 				{
 					positions = new List<Vector3>(_elements),
 					returningCount = _returningCount,
-					line = _lines[^1],
 					width = _lines[^1].Line.widthMultiplier
 				};
 				_returnBranches.Add(newReturnBranch);
