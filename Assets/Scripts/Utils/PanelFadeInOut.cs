@@ -35,7 +35,7 @@ public class PanelFadeInOut : MonoBehaviour
 	{
 		_canvasGroup.DOKill();
 		_canvasGroup.interactable = false;
-		_canvasGroup.DOFade(0f, _durationIn).OnComplete(() =>
+		_canvasGroup.DOFade(0f, _durationOut).OnComplete(() =>
 		{
 			OnFadeOut?.Invoke();
 			_canvasGroup.interactable = true;

@@ -14,6 +14,11 @@ public class LifeSystem : MonoBehaviour, IResetable
 	[SerializeField]
 	private FloatEvent _onAddLife = null;
 
+	[Header("Audio")]
+	[SerializeField]
+	private AudioClipEvent _sfxEvent = null;
+	[SerializeField]
+	private AudioClip _onDeathSFX = null;
 
 	private float _currentLife = 0f;
 	public float CurrentLife
@@ -60,10 +65,16 @@ public class LifeSystem : MonoBehaviour, IResetable
 
 		if (_currentLife < 0f)
 		{
+			if (_sfxEvent != null && _onDeathSFX != null)
+			{
+				_sfxEvent.Raise(_onDeathSFX);
+			}
+
 			if (_onDeath != null)
 			{
 				_onDeath.Raise(0f);
 			}
+
 		}
 
 

@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectInteractable : MonoBehaviour, IResetable
@@ -19,7 +18,7 @@ public class ObjectInteractable : MonoBehaviour, IResetable
 
 	[Header("Audio")]
 	[SerializeField]
-	private AudioSource _audioSource = null;
+	private AudioClipEvent _audioEvent = null;
 	[SerializeField]
 	private AudioClip _actionSFX = null;
 	[SerializeField]
@@ -39,6 +38,8 @@ public class ObjectInteractable : MonoBehaviour, IResetable
 	{
 		_graphic.DOKill();
 		_graphic.localRotation = Quaternion.identity;
+
+		_active = true;
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -56,29 +57,32 @@ public class ObjectInteractable : MonoBehaviour, IResetable
 		}
 
 
-		if (_actionSFX != null)
-		{
-			_audioSource.PlayOneShot(_actionSFX);
-		}
 
-		if (_onlyActivation && !_active)
+		if (_onlyActivation && _active)
 		{
-			return;
-		}
-
-		if (_rewardSFX != null)
-		{
-			_audioSource.PlayOneShot(_rewardSFX);
-		}
-
-		for (int i = 0; i < _rewardActions.Count; i++)
-		{
-			if (_rewardActions[i] != null)
+			if (_rewardSFX != null && _audioEvent != null)
 			{
-				_rewardActions[i].Raise(_value);
+				_audioEvent.Raise(_rewardSFX);
+			}
+
+			for (int i = 0; i < _rewardActions.Count; i++)
+			{
+				if (_rewardActions[i] != null)
+				{
+					_rewardActions[i].Raise(_value);
+				}
+			}
+
+
+
+		}else
+		{
+			if (_actionSFX != null && _audioEvent != null)
+			{
+				_audioEvent.Raise(_actionSFX);
 			}
 		}
-
 		_active = false;
+
 	}
 }

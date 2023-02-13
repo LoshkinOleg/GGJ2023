@@ -444,9 +444,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: PlayOneShot
+      - m_Target: {fileID: 11400000, guid: e704882faf7d57c468cfd80f080b9b9b, type: 2}
+        m_TargetAssemblyTypeName: EventRaisable`1[[UnityEngine.AudioClip, UnityEngine
+        m_MethodName: Raise
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 8300000, guid: aad5d314611214146b10dd6bf6c6e287, type: 3}
@@ -456,9 +456,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: PlayOneShot
+      - m_Target: {fileID: 11400000, guid: e704882faf7d57c468cfd80f080b9b9b, type: 2}
+        m_TargetAssemblyTypeName: EventRaisable`1[[UnityEngine.AudioClip, UnityEngine
+        m_MethodName: Raise
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 8300000, guid: 90421bf95a08d4041bd8baa7df27eb8b, type: 3}

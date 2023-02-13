@@ -27,6 +27,9 @@ public class GM : MonoBehaviour
 		}
 	}
 
+	[SerializeField]
+	private Chain _chain;
+
 
 	[Header("UI")]
 	[SerializeField]
@@ -193,6 +196,8 @@ public class GM : MonoBehaviour
 	public void HideEndScreen()
 	{
 		_endCanvas.FadeOut();
+
+		_chain.ClearLines();
 	}
 
 	public void OnMenuFadeComplete()

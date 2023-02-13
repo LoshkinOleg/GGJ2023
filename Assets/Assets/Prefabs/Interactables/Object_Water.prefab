@@ -471,6 +471,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9122941444412335998, guid: ba881dd01fe30d94ebd174588178ba90, type: 3}
+      propertyPath: _actionSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 08c5bedad80af5f48a0a723a0d20ed14, type: 3}
+    - target: {fileID: 9122941444412335998, guid: ba881dd01fe30d94ebd174588178ba90, type: 3}
       propertyPath: _rewardSFX
       value: 
       objectReference: {fileID: 8300000, guid: 90596bfa4f322d2429687f3aef6cabff, type: 3}

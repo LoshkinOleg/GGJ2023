@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -270,6 +271,19 @@ public class Chain : MonoBehaviour, IResetable
 		if (_returning)
 		{
 			_head.Movement.Activate = false;
+		}
+	}
+
+	public void ClearLines()
+	{
+		Color2 startColor = new Color2(_lines[0].Line.startColor, _lines[0].Line.startColor);
+		Color2 endColor = new Color2(_lines[0].Line.startColor, _lines[0].Line.startColor);
+
+		endColor.ca.a = endColor.cb.a = 0f;
+		for (int i = 0; i < _lines.Count; i++)
+		{
+			_lines[i].Line.DOKill();
+			_lines[i].Line.DOColor(startColor, endColor, .5f);
 		}
 	}
 }

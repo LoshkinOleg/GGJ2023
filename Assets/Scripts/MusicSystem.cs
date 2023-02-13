@@ -10,7 +10,7 @@ public class MusicSystem : MonoBehaviour
     [SerializeField] float _timeForLow = 25.0f;
     [SerializeField] float _timeForLowest = 10.0f;
 
-
+    [Header("Snapshots")]
     [SerializeField] float _transitionTime = 1f;
 
     [SerializeField]
@@ -24,8 +24,9 @@ public class MusicSystem : MonoBehaviour
     [SerializeField]
     private AudioMixerSnapshot _loseSnapshot;
 
+    [Header("SFX")]
     [SerializeField]
-    private AudioClip _onDieSFX;
+    private AudioClipEvent _sfxEvent = null;
     [SerializeField]
     private AudioSource _sfxSource;
 
@@ -45,7 +46,14 @@ public class MusicSystem : MonoBehaviour
     private void OnEnable()
     {
         ChangeStatus(Status.MENU);
+
+        _sfxEvent.AddListener(PlaySFX);
     }
+
+    private void OnDisable()
+    {
+		_sfxEvent.RemoveListener(PlaySFX);
+	}
 
     private void Update()
     {
@@ -62,10 +70,10 @@ public class MusicSystem : MonoBehaviour
         }else if(_lifeSystem.CurrentLife >= _timeForLow)
         {
             ChangeStatus(Status.DESHYDRATE);
-        }else if (_lifeSystem.CurrentLife > 0f)
+        }else if (_lifeSystem.CurrentLife > _timeForLowest)
         {
             ChangeStatus(Status.DEAD);
-        }if(_lifeSystem.CurrentLife <= 1f)
+        }if(_lifeSystem.CurrentLife < _timeForLowest)
         {
             ChangeStatus(Status.DIE);
         }
@@ -95,11 +103,16 @@ public class MusicSystem : MonoBehaviour
                 _deadSnapshot.TransitionTo(_transitionTime);
                 break;
             case Status.DIE:
-                _sfxSource.PlayOneShot(_onDieSFX);
                 _loseSnapshot.TransitionTo(_transitionTime);
                 break;
 			default:
                 break;
         }
     }
+
+
+    public void PlaySFX(AudioClip clip)
+    {
+		_sfxSource.PlayOneShot(clip);
+	}
 }
